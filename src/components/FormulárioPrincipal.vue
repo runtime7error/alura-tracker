@@ -44,7 +44,8 @@ export default defineComponent({
   name: "FormulárioPrincipal",
   data () {
     return {
-      tempoEmSegundos: 0
+      tempoEmSegundos: 0,
+      cronometro: 0
     };
   },
   computed: {
@@ -54,13 +55,14 @@ export default defineComponent({
   },
   methods: {
     iniciar () {
-      setInterval(()=> {
+      this.cronometro = setInterval(()=> {
         this.tempoEmSegundos+=1;
         console.log('tempoEmSegundos', this.tempoEmSegundos);
       }, 1000)
       console.log('iniciando Cronometro');
     },
     finalizar () {
+      clearInterval(this.cronometro);
       console.log('finalizando Cronometro');
     }
   }
