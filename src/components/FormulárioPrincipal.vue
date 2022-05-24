@@ -16,9 +16,7 @@
               placeholder="Qual tarefa será inciada ?"
             />
           </div>
-          <section class="m-2">
-            <strong>{{tempoDecorrido}}</strong>
-          </section>
+          <CronometroTimer :tempoEmSegundos="tempoEmSegundos"/>
           <button class="button mr-2" @click="iniciar">
             <span class="icon">
               <i class="fas fa-play"></i>
@@ -39,32 +37,29 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import CronometroTimer from './CronometroTimer.vue';
 
 export default defineComponent({
-  name: "FormulárioPrincipal",
-  data () {
-    return {
-      tempoEmSegundos: 0,
-      cronometro: 0
-    };
-  },
-  computed: {
-    tempoDecorrido () : string {
-      return new Date(this.tempoEmSegundos * 1000).toISOString().substring(11, 19);
-    }
-  },
-  methods: {
-    iniciar () {
-      this.cronometro = setInterval(()=> {
-        this.tempoEmSegundos+=1;
-        console.log('tempoEmSegundos', this.tempoEmSegundos);
-      }, 1000)
-      console.log('iniciando Cronometro');
+    name: "FormulárioPrincipal",
+    data() {
+        return {
+            tempoEmSegundos: 0,
+            cronometro: 0
+        };
     },
-    finalizar () {
-      clearInterval(this.cronometro);
-      console.log('finalizando Cronometro');
-    }
-  }
+    methods: {
+        iniciar() {
+            this.cronometro = setInterval(() => {
+                this.tempoEmSegundos += 1;
+                console.log("tempoEmSegundos", this.tempoEmSegundos);
+            }, 1000);
+            console.log("iniciando Cronometro");
+        },
+        finalizar() {
+            clearInterval(this.cronometro);
+            console.log("finalizando Cronometro");
+        }
+    },
+    components: { CronometroTimer }
 });
 </script>
