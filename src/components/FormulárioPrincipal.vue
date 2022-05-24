@@ -16,19 +16,7 @@
               placeholder="Qual tarefa será inciada ?"
             />
           </div>
-          <CronometroTimer :tempoEmSegundos="tempoEmSegundos"/>
-          <button class="button mr-2" @click="iniciar">
-            <span class="icon">
-              <i class="fas fa-play"></i>
-            </span>
-            <span>Play</span>
-          </button>
-          <button class="button ml-2" @click="finalizar">
-            <span class="icon">
-              <i class="fas fa-stop"></i>
-            </span>
-            <span>Stop</span>
-          </button>
+          <ButtonBar />
         </div>
       </div>
     </div>
@@ -37,29 +25,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import CronometroTimer from './CronometroTimer.vue';
+import ButtonBar from './ButtonBar.vue';
 
 export default defineComponent({
     name: "FormulárioPrincipal",
-    data() {
-        return {
-            tempoEmSegundos: 0,
-            cronometro: 0
-        };
-    },
-    methods: {
-        iniciar() {
-            this.cronometro = setInterval(() => {
-                this.tempoEmSegundos += 1;
-                console.log("tempoEmSegundos", this.tempoEmSegundos);
-            }, 1000);
-            console.log("iniciando Cronometro");
-        },
-        finalizar() {
-            clearInterval(this.cronometro);
-            console.log("finalizando Cronometro");
-        }
-    },
-    components: { CronometroTimer }
+    components: {
+      ButtonBar
+      }
 });
 </script>
