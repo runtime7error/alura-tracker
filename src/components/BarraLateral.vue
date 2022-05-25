@@ -47,7 +47,7 @@ header {
   background: #afc1cd;
   background: #1d1664; */
   padding: 1rem;
-  background: rgb(29,22,100);
+  background: rgb(13,13,58);
   background: radial-gradient(0deg, rgba(29,22,100,1) 0%, rgba(19,16,47,1) 63%, rgba(175,193,205,1) 100%);
   width: 100%;
   height: 100vh;
