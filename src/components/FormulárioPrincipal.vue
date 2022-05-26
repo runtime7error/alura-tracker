@@ -14,9 +14,10 @@
               type="text"
               class="input"
               placeholder="Qual tarefa será inciada ?"
+              v-model="descricao"
             />
           </div>
-          <ButtonBar />
+          <ButtonBar @aoTemporizadorFinalizado="finalizarTarefa"/>
         </div>
       </div>
     </div>
@@ -28,9 +29,20 @@ import { defineComponent } from "vue";
 import ButtonBar from './ButtonBar.vue';
 
 export default defineComponent({
-    name: "FormulárioPrincipal",
-    components: {
-      ButtonBar
-      }
+  name: "FormulárioPrincipal",
+  components: {
+    ButtonBar
+  },
+  data () {
+    return {
+      descricao: ''
+    }
+  },
+  methods: {
+    finalizarTarefa (tempoDecorrido: number) : void {
+      console.log(`finalizando tarefa ${this.descricao} e o tempo foi de ${tempoDecorrido} em segundos.`);
+      this.descricao = '';
+    } 
+  }
 });
 </script>

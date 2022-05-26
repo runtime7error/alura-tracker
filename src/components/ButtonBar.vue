@@ -1,47 +1,45 @@
 <template>
   <CronometroTimer :tempoEmSegundos="tempoEmSegundos" />
-  <button class="button mr-2" @click="iniciar" :disabled="cronometroRodando">
-    <span class="icon">
-      <i class="fas fa-play"></i>
-    </span>
-    <span>Play</span>
-  </button>
-  <button class="button ml-2" @click="finalizar" :disabled="!cronometroRodando">
-    <span class="icon">
-      <i class="fas fa-stop"></i>
-    </span>
-    <span>Stop</span>
-  </button>
+  <PlayButton @clicado="iniciar" icone="fas fa-play" texto="play" :desabilitado="cronometroRodando"/>
+  <StopButton @clicado="finalizar" icone="fas fa-stop" texto="stop" :desabilitado="!cronometroRodando"/>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import CronometroTimer from './CronometroTimer.vue';
+import CronometroTimer from "./CronometroTimer.vue";
+import PlayButton from "./PlayButton.vue";
+import StopButton from "./StopButton.vue";
 
 export default defineComponent({
-    name: "ButtonBar",
-    data() {
-        return {
-            tempoEmSegundos: 0,
-            cronometro: 0,
-            cronometroRodando: false
-        };
+  name: "ButtonBar",
+  emits: ["aoTemporizadorFinalizado"],
+  data() {
+    return {
+      tempoEmSegundos: 0,
+      cronometro: 0,
+      cronometroRodando: false,
+    };
+  },
+  methods: {
+    iniciar() {
+      this.cronometro = setInterval(() => {
+        this.tempoEmSegundos += 1;
+      }, 1000);
+      this.cronometroRodando = true;
+      console.log("iniciando Cronometro");
     },
-    methods: {
-        iniciar() {
-            this.cronometro = setInterval(() => {
-                this.tempoEmSegundos += 1;
-                console.log("tempoEmSegundos", this.tempoEmSegundos);
-            }, 1000);
-            this.cronometroRodando = true;
-            console.log("iniciando Cronometro");
-        },
-        finalizar() {
-            clearInterval(this.cronometro);
-            this.cronometroRodando = false;
-            console.log("finalizando Cronometro");
-        }
-    },
-    components: { CronometroTimer }
+    finalizar() {
+      clearInterval(this.cronometro);
+      this.cronometroRodando = false;
+      this.$emit("aoTemporizadorFinalizado", this.tempoEmSegundos);
+      this.tempoEmSegundos = 0;
+      console.log("finalizando Cronometro");
+    }
+  },
+  components: {
+    CronometroTimer,
+    PlayButton,
+    StopButton
+  },
 });
 </script>

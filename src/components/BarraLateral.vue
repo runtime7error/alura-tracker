@@ -29,15 +29,6 @@ export default defineComponent({
   },
 });
 
-// computed: {
-//   ranniClass() {
-//     if(window.innerHeight === 768px) {
-//       return 'image is-fullwidth ranniGradient'
-//     }
-//     return 'yClass'
-//   }
-// }
-
 </script>
 
 <style scoped>
