@@ -46,7 +46,7 @@ export default defineComponent({
         descricao: this.descricao
       });
       this.descricao = '';
-    } 
+    }
   }
 });
 </script>

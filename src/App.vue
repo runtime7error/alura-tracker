@@ -4,12 +4,9 @@
       <barra-lateral />
     </div>
     <div class="column is-three-quarter">
-      <formulário-principal @aoSalvarTarefa="salvarTarefa"/>
+      <formulário-principal @aoSalvarTarefa="salvarTarefa($event)"/>
       <div class="lista">
-        <TarefaItem />
-        <TarefaItem />
-        <TarefaItem />
-        <TarefaItem />
+        <TarefaItem v-for="(tarefa, index) in tarefas " :key="index" :tarefa="tarefa"/>
       </div>
     </div>
   </main>
@@ -33,7 +30,7 @@ export default defineComponent({
       tarefas: [] as Tarefa[]
     }
   },
-  method: {
+  methods: {
     salvarTarefa(tarefa: Tarefa) {
       this.tarefas.push(tarefa);
     }

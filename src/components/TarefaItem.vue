@@ -2,23 +2,30 @@
     <div class="box has-text-height-bold">
         <div class="columns">
             <div class="column is-7">
-                Descrição da Tarefa
+                {{tarefa.descricao}}
             </div>
             <div class="column">
-                <cronometro-timer :tempoEmSegundos="15"/>
+                <cronometro-timer :tempoEmSegundos="tarefa.duracaoEmSegundos"/>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import CronometroTimer from "./CronometroTimer.vue";
+import ITarefa from "../interfaces/Tarefa";
 
 export default defineComponent({
     name: "TarefaItem",
     components: {
         CronometroTimer
+    },
+    props: {
+        tarefa: {
+            type: Object as PropType<ITarefa>,
+            required: true
+        }
     }
 });
 </script>

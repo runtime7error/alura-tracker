@@ -1,5 +1,5 @@
 <template>
-  <CronometroTimer :tempoEmSegundos="tempoEmSegundos" />
+  <CronometroTimer :tempoEmSegundos="tempoEmSegundos" class="m-2"/>
   <PlayButton @clicado="iniciar" icone="fas fa-play" texto="play" :desabilitado="cronometroRodando"/>
   <StopButton @clicado="finalizar" icone="fas fa-stop" texto="stop" :desabilitado="!cronometroRodando"/>
 </template>

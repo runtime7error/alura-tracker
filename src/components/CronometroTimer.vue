@@ -1,5 +1,5 @@
 <template>
-    <section class="m-2">
+    <section>
         <strong>{{tempoDecorrido}}</strong>
     </section>
 </template>
