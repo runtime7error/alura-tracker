@@ -6,6 +6,9 @@
     <div class="column is-three-quarter">
       <formulário-principal @aoSalvarTarefa="salvarTarefa($event)"/>
       <div class="lista">
+        <BoxEmpty v-if="listaVazia">
+          <b>Não foram iniciadas tarefas </b>😢
+        </BoxEmpty>
         <TarefaItem v-for="(tarefa, index) in tarefas " :key="index" :tarefa="tarefa"/>
       </div>
     </div>
@@ -18,16 +21,23 @@ import BarraLateral from "./components/BarraLateral.vue";
 import FormulárioPrincipal from "./components/FormulárioPrincipal.vue";
 import TarefaItem from "./components/TarefaItem.vue";
 import Tarefa from "./interfaces/Tarefa";
+import BoxEmpty from "./components/EmptyBox.vue";
 
 export default defineComponent({
   components: {
     BarraLateral,
     FormulárioPrincipal,
-    TarefaItem
+    TarefaItem,
+    BoxEmpty
   },
   data() {
     return {
       tarefas: [] as Tarefa[]
+    }
+  },
+  computed: {
+    listaVazia () : boolean {
+      return this.tarefas.length === 0;
     }
   },
   methods: {
