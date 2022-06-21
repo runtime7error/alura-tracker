@@ -29,9 +29,3 @@ export default defineComponent({
     }
 });
 </script>
-
-<style scoped>
-.box {
-    background: #afc1cd;
-}
-</style>

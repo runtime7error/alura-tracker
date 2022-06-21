@@ -15,9 +15,3 @@ export default defineComponent({
     name: "BoxEmpty"
 });
 </script>
-
-<style scoped>
-.box {
-    background: #afc1cd;
-}
-</style>

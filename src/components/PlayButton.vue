@@ -31,3 +31,21 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.button {
+  background-color: var(--bgprimario);
+  color: var(--texto-primario);
+}
+
+.button:hover {
+    background-color: var(--bgsecundario);
+    color: var(--hover-texto-primario);
+}
+
+.button:disabled {
+    background-color: var(--bgprimario);
+    color: var(--texto-primario);
+    cursor: not-allowed;
+}
+</style>

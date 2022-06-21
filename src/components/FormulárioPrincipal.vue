@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box formulario">
     <div class="columns">
       <div
         class="column is-flex-grow-5"
@@ -50,3 +50,10 @@ export default defineComponent({
   }
 });
 </script>
+
+<style>
+.formulario{
+  color: var(--texto-primario);
+  background-color: var(--bgprimario);
+}
+</style>

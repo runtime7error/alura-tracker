@@ -6,6 +6,12 @@
         alt="ranni"
         :class="ranniClass.ranni"
       />
+      <!-- <button class="button" @click="alterarTema">
+      </button> -->
+      <span class="icon is-medium fas fa-2x" @click="alterarTema">
+          <i class="fa-solid fa-moon darkIcon"></i>
+      </span>
+      <div></div>
     </h1>
   </header>
 </template>
@@ -15,6 +21,12 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "BarraLateral",
+  emits: ['aoTemaAlterado'],
+  data () {
+    return {
+      modoEscuro: false
+    }
+  },
   computed: {
     ranniClass() {
       return {
@@ -22,6 +34,12 @@ export default defineComponent({
       };
     }
   },
+  methods: {
+    alterarTema() {
+      this.modoEscuro = !this.modoEscuro;
+      this.$emit("aoTemaAlterado", this.modoEscuro);
+    }
+  }
 });
 
 </script>
@@ -37,7 +55,12 @@ header {
   background: radial-gradient(0deg, rgba(29,22,100,1) 0%, rgba(19,16,47,1) 63%, rgba(175,193,205,1) 100%);
   width: 100%;
   height: 100vh;
+  border-right: 1px solid rgb(183, 183, 183);
 }
+
+ .darkIcon {
+    color: #fff;
+  }
 
 .ranniGradient {
   mask-image: radial-gradient(circle, rgba(19,16,47,1) 0%, rgba(19,16,47,0) 75%);
