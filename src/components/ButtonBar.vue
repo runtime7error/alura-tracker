@@ -17,7 +17,7 @@ export default defineComponent({
     return {
       tempoEmSegundos: 0,
       cronometro: 0,
-      cronometroRodando: false,
+      cronometroRodando: false
     };
   },
   methods: {
@@ -40,6 +40,7 @@ export default defineComponent({
     CronometroTimer,
     PlayButton,
     StopButton
-  },
+  }
 });
+
 </script>

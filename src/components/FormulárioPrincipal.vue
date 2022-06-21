@@ -30,6 +30,7 @@ import ButtonBar from './ButtonBar.vue';
 
 export default defineComponent({
   name: "FormulárioPrincipal",
+  emits: ['aoSalvarTarefa'],
   components: {
     ButtonBar
   },
@@ -40,7 +41,10 @@ export default defineComponent({
   },
   methods: {
     finalizarTarefa (tempoDecorrido: number) : void {
-      console.log(`finalizando tarefa ${this.descricao} e o tempo foi de ${tempoDecorrido} em segundos.`);
+      this.$emit('aoSalvarTarefa', {
+        duracaoEmSegundos: tempoDecorrido,
+        descricao: this.descricao
+      });
       this.descricao = '';
     } 
   }

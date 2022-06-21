@@ -17,11 +17,6 @@ export default defineComponent({
   name: "BarraLateral",
   computed: {
     ranniClass() {
-      if (window.innerHeight < 769) {
-        return {
-          "ranni": 'image'
-        };
-      }
       return {
           "ranni": 'image is-fullwidth ranniGradient'
       };
