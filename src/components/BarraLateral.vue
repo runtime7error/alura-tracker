@@ -13,6 +13,26 @@
       </span>
       <div></div>
     </h1>
+    <nav class="panel mt-5">
+      <ul class="is-size-7">
+        <li>
+          <router-link to="/" class="link">
+            <span class="icon is-medium fas fa-2x">
+              <i class="fas fa-tasks"></i>
+            </span>
+            <span class="ml-2">Home</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/projetos" class="link">
+            <span class="icon is-medium fas fa-2x">
+              <i class="fas fa-project-diagram"></i>
+            </span>
+            <span class="ml-2">Projetos</span>
+          </router-link>
+        </li>
+      </ul>
+    </nav>
   </header>
 </template>
 
@@ -78,5 +98,17 @@ header {
     max-width: 350px;
     margin: auto;
   }
+}
+.panel li {
+    margin: 8px 0;
+}
+.link {
+    color: #fff;
+}
+.link:hover {
+    color: #FAF0CA;
+}
+.link.router-link-active {
+    color: #FAF0CA;
 }
 </style>

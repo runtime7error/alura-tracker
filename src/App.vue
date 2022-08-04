@@ -1,16 +1,13 @@
 <template>
-  <main class="columns is-gapless is-multiline" :class="{ 'modo-escuro': modoEscuroAtivo }">
+  <main
+    class="columns is-gapless is-multiline"
+    :class="{ 'modo-escuro': modoEscuroAtivo }"
+  >
     <div class="column is-one-quarter">
-      <barra-lateral @aoTemaAlterado="trocarTema"/>
+      <barra-lateral @aoTemaAlterado="trocarTema" />
     </div>
     <div class="column is-three-quarter conteudo">
-      <formulário-principal @aoSalvarTarefa="salvarTarefa($event)"/>
-      <div class="lista">
-        <BoxEmpty v-if="listaVazia" class="taskBox">
-          <b>Não foram iniciadas tarefas </b>😢
-        </BoxEmpty>
-        <TarefaItem v-for="(tarefa, index) in tarefas " :key="index" :tarefa="tarefa" class="taskBox"/>
-      </div>
+      <router-view></router-view>
     </div>
   </main>
 </template>
@@ -18,38 +15,23 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import BarraLateral from "./components/BarraLateral.vue";
-import FormulárioPrincipal from "./components/FormulárioPrincipal.vue";
-import TarefaItem from "./components/TarefaItem.vue";
 import Tarefa from "./interfaces/Tarefa";
-import BoxEmpty from "./components/EmptyBox.vue";
 
 export default defineComponent({
   components: {
     BarraLateral,
-    FormulárioPrincipal,
-    TarefaItem,
-    BoxEmpty
   },
   data() {
     return {
-      tarefas: [] as Tarefa[],
-      modoEscuroAtivo: false
-    }
-  },
-  computed: {
-    listaVazia () : boolean {
-      return this.tarefas.length === 0;
-    }
+      modoEscuroAtivo: false,
+    };
   },
   methods: {
-    salvarTarefa(tarefa: Tarefa) {
-      this.tarefas.push(tarefa);
-    },
-    trocarTema (modoEscuro: boolean) {
+    trocarTema(modoEscuro: boolean) {
       this.modoEscuroAtivo = modoEscuro;
-    }
+    },
   },
-  name: "App"
+  name: "App",
 });
 </script>
 
@@ -67,7 +49,7 @@ main {
 }
 
 main.modo-escuro {
-  --bgprimario: #08083e;
+  --bgprimario: #04041f;
   --texto-primario: #fff;
   --box-bg: #a3ffbf;
   --hover-texto-primario: #051933;
