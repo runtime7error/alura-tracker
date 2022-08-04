@@ -26,7 +26,7 @@ export default defineComponent({
     },
     methods : {
         clicar() {
-            this.$emit("clicado")
+            this.$emit("clicado");
         }
     }
 });
