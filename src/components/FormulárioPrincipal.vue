@@ -6,10 +6,10 @@
         role="form"
         aria-label="Formulário para criação de uma nova tarefa"
       >
-        <div
-          class="columns"
-        >
-          <div class="is-flex-grow-5 is-align-items-center is-justify-content-space-between">
+        <div class="columns is-vcentered">
+          <div
+            class="is-flex-grow-5 is-align-items-center is-justify-content-space-between"
+          >
             <input
               type="text"
               class="input"
@@ -17,7 +17,21 @@
               v-model="descricao"
             />
           </div>
-          <ButtonBar @aoTemporizadorFinalizado="finalizarTarefa"/>
+          <div class="column is-3">
+            <div class="select">
+              <select v-model="idProjeto">
+                <option value="">Selecione o projeto</option>
+                <option
+                  :value="projeto.id"
+                  v-for="projeto in projetos"
+                  :key="projeto.id"
+                >
+                  {{ projeto.nome }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <ButtonBar @aoTemporizadorFinalizado="finalizarTarefa" />
         </div>
       </div>
     </div>
@@ -25,34 +39,44 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import ButtonBar from './ButtonBar.vue';
+import { computed, defineComponent } from "vue";
+import { useStore } from "vuex";
+import ButtonBar from "./ButtonBar.vue";
+import { key } from "@/store";
 
 export default defineComponent({
   name: "FormulárioPrincipal",
-  emits: ['aoSalvarTarefa'],
+  emits: ["aoSalvarTarefa"],
   components: {
-    ButtonBar
+    ButtonBar,
   },
-  data () {
+  data() {
     return {
-      descricao: ''
-    }
+      descricao: "",
+      idProjeto: ""
+    };
   },
   methods: {
-    finalizarTarefa (tempoDecorrido: number) : void {
-      this.$emit('aoSalvarTarefa', {
+    finalizarTarefa(tempoDecorrido: number): void {
+      this.$emit("aoSalvarTarefa", {
         duracaoEmSegundos: tempoDecorrido,
-        descricao: this.descricao
+        descricao: this.descricao,
+        projeto: this.projetos.find(proj => proj.id === this.idProjeto),
       });
-      this.descricao = '';
-    }
+      this.descricao = "";
+    },
+  },
+  setup() {
+    const store = useStore(key);
+    return {
+      projetos: computed(() => store.state.projetos)
+    };
   }
 });
 </script>
 
 <style>
-.formulario{
+.formulario {
   color: var(--texto-primario);
   background-color: var(--bgprimario);
 }
