@@ -20,8 +20,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
-import { ALTERA_PROJETO, ADICIONA_PROJETO, NOTIFICAR } from "@/store/tipo-mutacoes";
+import { ALTERA_PROJETO, ADICIONA_PROJETO } from "@/store/tipo-mutacoes";
 import { TipoNotificacao } from "@/interfaces/Notificacoes";
+import { notificacaoMixin } from "@/mixins/notificar";
 
 export default defineComponent({
   name: "FormsPage",
@@ -35,6 +36,7 @@ export default defineComponent({
       nomeDoProjeto: "",
     };
   },
+  mixins: [notificacaoMixin],
   mounted() {
     if (this.id) {
       const projeto = this.store.state.projetos.find(
@@ -54,11 +56,7 @@ export default defineComponent({
         this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto);
       }
       this.nomeDoProjeto = "";
-      this.store.commit(NOTIFICAR, {
-        titulo: "Sucesso",
-        texto: "Projeto salvo com sucesso",
-        tipo: TipoNotificacao.SUCESSO,
-      });
+      this.notificar(TipoNotificacao.SUCESSO, 'Excelente!', 'Projeto salvo com sucesso!');
       this.$router.push("/projetos");
     },
   },
