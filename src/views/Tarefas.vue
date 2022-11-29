@@ -12,6 +12,22 @@
         class="taskBox"
       />
     </div>
+    <div class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Modal title</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success">Save changes</button>
+          <button class="button">Cancel</button>
+        </footer>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -20,8 +36,9 @@ import { computed, defineComponent } from "vue";
 import FormulárioPrincipal from "../components/FormulárioPrincipal.vue";
 import TarefaItem from "../components/TarefaItem.vue";
 import BoxEmpty from "../components/EmptyBox.vue";
-import { OBTER_TAREFAS } from "@/store/tipo-acoes";
+import { OBTER_PROJETOS, OBTER_TAREFAS } from "@/store/tipo-acoes";
 import { useStore } from "@/store";
+import Tarefa from "@/interfaces/Tarefa";
 
 export default defineComponent({
   components: {
@@ -37,15 +54,16 @@ export default defineComponent({
   setup() {
     const store = useStore();
     store.dispatch(OBTER_TAREFAS);
+    store.dispatch(OBTER_PROJETOS);
     return {
       tarefas: computed(() => store.state.tarefas),
-      store
+      store,
     };
   },
   methods: {
-    // salvarTarefa(tarefa: Tarefa) {
-    //   this.tarefas.push(tarefa);
-    // },
+    salvarTarefa(tarefa: Tarefa) {
+      this.store.dispatch("CADASTRAR_TAREFA", tarefa);
+    },
   },
   name: "App",
 });

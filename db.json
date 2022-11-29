@@ -7,7 +7,7 @@
     {
       "nome": "ByteBank",
       "id": 2
-     }
+    }
   ],
   "tarefas": [
     {
@@ -26,6 +26,15 @@
         "id": 1,
         "nome": "Projeto 1 3.0"
       }
+    },
+    {
+      "duracaoEmSegundos": 2,
+      "descricao": "lul",
+      "projeto": {
+        "nome": "ByteBank",
+        "id": 2
+      },
+      "id": 3
     }
   ]
 }
