@@ -7,6 +7,25 @@
     {
       "nome": "ByteBank",
       "id": 2
+     }
+  ],
+  "tarefas": [
+    {
+      "id": 1,
+      "duracaoEmSegundos": 120,
+      "descricao": "lmao",
+      "projeto": {
+        "id": 1,
+        "nome": "Projeto 1 3.0"
+      }
+    },
+    {
+      "id": 2,
+      "nome": "Tarefa 2",
+      "projeto": {
+        "id": 1,
+        "nome": "Projeto 1 3.0"
+      }
     }
   ]
 }

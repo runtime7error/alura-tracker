@@ -16,11 +16,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import FormulárioPrincipal from "../components/FormulárioPrincipal.vue";
 import TarefaItem from "../components/TarefaItem.vue";
-import Tarefa from "../interfaces/Tarefa";
 import BoxEmpty from "../components/EmptyBox.vue";
+import { OBTER_TAREFAS } from "@/store/tipo-acoes";
+import { useStore } from "@/store";
 
 export default defineComponent({
   components: {
@@ -28,20 +29,23 @@ export default defineComponent({
     TarefaItem,
     BoxEmpty,
   },
-  data() {
-    return {
-      tarefas: [] as Tarefa[]
-    };
-  },
   computed: {
     listaVazia(): boolean {
       return this.tarefas.length === 0;
     },
   },
+  setup() {
+    const store = useStore();
+    store.dispatch(OBTER_TAREFAS);
+    return {
+      tarefas: computed(() => store.state.tarefas),
+      store
+    };
+  },
   methods: {
-    salvarTarefa(tarefa: Tarefa) {
-      this.tarefas.push(tarefa);
-    },
+    // salvarTarefa(tarefa: Tarefa) {
+    //   this.tarefas.push(tarefa);
+    // },
   },
   name: "App",
 });
