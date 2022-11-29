@@ -2,8 +2,8 @@ import { Notificacoes } from "@/interfaces/Notificacoes";
 import Projeto from "@/interfaces/Projeto";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import { CADASTRAR_PROJETO, CADASTRAR_TAREFA, OBTER_PROJETOS, OBTER_TAREFAS, REMOVER_PROJETO } from "./tipo-acoes";
-import { ADICIONAR_TAREFA, ADICIONA_PROJETO, ALTERA_PROJETO, DEFINIR_PROJETOS, DEFINIR_TAREFAS, EXCLUIR_PROJETO, NOTIFICAR } from "./tipo-mutacoes";
+import { ALTERAR_TAREFA, CADASTRAR_PROJETO, CADASTRAR_TAREFA, OBTER_PROJETOS, OBTER_TAREFAS, REMOVER_PROJETO } from "./tipo-acoes";
+import { ADICIONAR_TAREFA, ADICIONA_PROJETO, ALTERA_PROJETO, ALTERA_TAREFA, DEFINIR_PROJETOS, DEFINIR_TAREFAS, EXCLUIR_PROJETO, NOTIFICAR } from "./tipo-mutacoes";
 import http from '@/http'
 import Tarefa from "@/interfaces/Tarefa";
 
@@ -45,6 +45,10 @@ export const store = createStore<Estado>({
     [ADICIONAR_TAREFA](state, tarefa: Tarefa) {
       state.tarefas.push(tarefa);
     },
+    [ALTERA_TAREFA](state, tarefa: Tarefa) {
+      const index = state.tarefas.findIndex((taref) => taref.id === tarefa.id);
+      state.tarefas[index] = tarefa;
+    },
     [NOTIFICAR](state, novaNotificacao: Notificacoes) {
       novaNotificacao.id = new Date().getTime();
       state.notificacoes.push(novaNotificacao);
@@ -69,11 +73,11 @@ export const store = createStore<Estado>({
       .then(response => commit(ADICIONA_PROJETO, response.data))
     },
     [ALTERA_PROJETO] ({ commit }, projeto: Projeto) {
-      return http.put('projetos/${projeto.id}', projeto)
+      return http.put(`/projetos/${projeto.id}`, projeto)
       .then(response => commit(ALTERA_PROJETO, response.data))
     },
     [REMOVER_PROJETO] ({ commit }, id: string) {
-      return http.delete('projetos/${id}')
+    return http.delete(`/projetos/${id}`)
       .then(() => commit(EXCLUIR_PROJETO, id))
     },
     [OBTER_TAREFAS] ({ commit }) {
@@ -83,6 +87,10 @@ export const store = createStore<Estado>({
     [CADASTRAR_TAREFA] ({ commit },tarefa: Tarefa) {
       return http.post('tarefas', tarefa)
       .then(response => commit(ADICIONAR_TAREFA, response.data))
+    },
+    [ALTERAR_TAREFA] ({ commit }, tarefa: Tarefa) {
+      return http.put(`/tarefas/${tarefa.id}`, tarefa)
+      .then(() => commit(ALTERA_TAREFA, tarefa))
     },
   }
 });
