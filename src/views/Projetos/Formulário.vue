@@ -24,6 +24,7 @@ import { ALTERA_PROJETO } from "@/store/tipo-mutacoes";
 import { TipoNotificacao } from "@/interfaces/Notificacoes";
 import useNotificador from "@/hooks/notificador";
 import { CADASTRAR_PROJETO } from "@/store/tipo-acoes";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "FormsPage",
@@ -32,28 +33,8 @@ export default defineComponent({
       type: String,
     },
   },
-  methods: {
-    salvar() {
-      if (this.id) {
-        this.store.dispatch(ALTERA_PROJETO, {
-          id: this.id,
-          nome: this.nomeDoProjeto,
-        }).then(() => {
-          this.onSucess();
-        });
-      } else {
-        this.store.dispatch(CADASTRAR_PROJETO, this.nomeDoProjeto).then(() => {
-          this.onSucess();
-        });
-      }
-    },
-    onSucess() {
-      this.nomeDoProjeto = "";
-          this.notificar(TipoNotificacao.SUCESSO, 'Excelente!', 'Projeto salvo com sucesso!');
-          this.$router.push("/projetos");
-    },
-  },
   setup(props) {
+    const router = useRouter();
     const store = useStore();
     const { notificar } = useNotificador()
 
@@ -65,10 +46,31 @@ export default defineComponent({
       );
       nomeDoProjeto.value = projeto?.nome || "";
     }
+
+    const onSucess = () => {
+        nomeDoProjeto.value = "";
+        notificar(TipoNotificacao.SUCESSO, 'Excelente!', 'Projeto salvo com sucesso!');
+        router.push("/projetos");
+    }
+
+    const salvar = () => {
+      if (props.id) {
+        store.dispatch(ALTERA_PROJETO, {
+          id: props.id,
+          nome: nomeDoProjeto.value,
+        }).then(() => {
+          onSucess();
+        });
+      } else {
+        store.dispatch(CADASTRAR_PROJETO, nomeDoProjeto.value).then(() => {
+          onSucess();
+        });
+      }
+    }
+
     return {
-      store,
-      notificar,
-      nomeDoProjeto
+      nomeDoProjeto,
+      salvar
     };
   },
 });
