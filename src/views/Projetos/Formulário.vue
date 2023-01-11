@@ -36,9 +36,9 @@ export default defineComponent({
   setup(props) {
     const router = useRouter();
     const store = useStore();
-    const { notificar } = useNotificador()
+    const { notificar } = useNotificador();
 
-    const nomeDoProjeto = ref("")
+    const nomeDoProjeto = ref("");
 
     if (props.id) {
       const projeto = store.state.projeto.projetos.find(
@@ -48,31 +48,36 @@ export default defineComponent({
     }
 
     const onSucess = () => {
-        nomeDoProjeto.value = "";
-        notificar(TipoNotificacao.SUCESSO, 'Excelente!', 'Projeto salvo com sucesso!');
-        router.push("/projetos");
-    }
+      nomeDoProjeto.value = "";
+      notificar(
+        TipoNotificacao.SUCESSO,
+        "Excelente!",
+        "Projeto salvo com sucesso!"
+      );
+      router.push("/projetos");
+    };
 
     const salvar = () => {
       if (props.id) {
-        store.dispatch(ALTERA_PROJETO, {
-          id: props.id,
-          nome: nomeDoProjeto.value,
-        }).then(() => {
-          onSucess();
-        });
+        store
+          .dispatch(ALTERA_PROJETO, {
+            id: props.id,
+            nome: nomeDoProjeto.value,
+          })
+          .then(() => {
+            onSucess();
+          });
       } else {
         store.dispatch(CADASTRAR_PROJETO, nomeDoProjeto.value).then(() => {
           onSucess();
         });
       }
-    }
+    };
 
     return {
       nomeDoProjeto,
-      salvar
+      salvar,
     };
   },
 });
 </script>
- 
